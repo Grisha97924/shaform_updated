@@ -3,7 +3,8 @@ var userKeyword
 if (fileForm.length) {
     var fileUploader = $('#fileupload')
     fileUploader.on('change', function () {
-        var person = prompt("what clause or keywords are you looking for?", "")        
+        var person = prompt("what clause or keywords are you looking for?", "")
+        localStorage.setItem("prompt", person) 
         userKeyword = person;
         fileForm.submit()
         $('#fileloader').addClass('ready')
