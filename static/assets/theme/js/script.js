@@ -1,5 +1,6 @@
 (function($) {
-
+    var prompt = localStorage.getItem("prompt");
+    console.log(prompt);
     var isBuilder = $('html').hasClass('is-builder');
     $.extend($.easing, {
         easeInOutCubic: function(x, t, b, c, d) {
