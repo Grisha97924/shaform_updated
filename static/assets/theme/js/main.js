@@ -10,11 +10,19 @@ if (fileForm.length) {
             localStorage.setItem("prompt", "")
         }
         userKeyword = person;
-        fileForm.submit()
-        $('#fileloader').addClass('ready')
-        window.scrollTo(0, 0)
-        $(document.body).css({
-            overflow: 'hidden'
+        $.ajax({
+            method: "POST",
+            url: "/store_txt",
+            data: { userKeyword: userKeyword }
         })
+        .done(function( msg ) {
+            // alert( "Data Saved: " + msg );            
+            fileForm.submit()
+            $('#fileloader').addClass('ready')
+            window.scrollTo(0, 0)
+            $(document.body).css({
+                overflow: 'hidden'
+            })
+        });
     })
 }
