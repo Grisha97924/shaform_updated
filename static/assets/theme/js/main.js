@@ -5,11 +5,11 @@ if (fileForm.length) {
     fileUploader.on('change', function () {
         var person = prompt("what clause or keywords are you looking for?", "")
         if (person != null) {
-            localStorage.setItem("prompt", person+"")
+            userKeyword = person+""
         } else {
-            localStorage.setItem("prompt", "")
+            userKeyword = ""
         }
-        userKeyword = person+""
+        localStorage.setItem("prompt", userKeyword)
         $.ajax({
             url: "/store_txt",
             type: "get",
