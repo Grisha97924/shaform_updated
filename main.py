@@ -224,10 +224,12 @@ def async_detect_document(bucket, filename):
 def index():
     return render_template('index2.html')
 
-@app.route('/store_txt', methods=['GET'])
+@app.route('/store_txt')
 def store_txt():
-    userKeyword = flask.request.args.get('userKeyword')
+    userKeyword = request.args.get('userKeyword')
 
+    print(userKeyword)
+    
     save_path = 'var/backups/'
 
     currentDT = datetime.datetime.now()
