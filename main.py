@@ -13,6 +13,7 @@ import json
 import re
 import argparse
 import io
+import datetime
 from google.cloud import pubsub_v1
 from google.cloud import vision
 from flask import Flask, request, render_template
@@ -223,6 +224,27 @@ def async_detect_document(bucket, filename):
 def index():
     return render_template('index2.html')
 
+@app.route('/store_txt', methods=['POST'])
+def store_txt(company_id):
+    userKeyword = request.json.get('userKeyword')
+
+    save_path = 'var/backups/'
+
+    currentDT = datetime.datetime.now()
+
+    name_of_file = raw_input('userKeyword-' + currentDT.strftime("%Y%m%d%H%M%S"))
+
+    completeName = os.path.join(save_path, name_of_file+".txt")         
+
+    file1 = open(completeName, "w")
+
+    toFile = raw_input(userKeyword)
+
+    file1.write(toFile)
+
+    file1.close()
+
+    return 'success'
 
 @app.route('/upload', methods=['POST'])
 def upload():
