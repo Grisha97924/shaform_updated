@@ -1,7 +1,9 @@
 (function($) {
+    
     var prompt = localStorage.getItem("prompt");
-    console.log(prompt);
+    
     var isBuilder = $('html').hasClass('is-builder');
+
     $.extend($.easing, {
         easeInOutCubic: function(x, t, b, c, d) {
             if ((t /= d / 2) < 1) return c / 2 * t * t * t + b;
@@ -1000,16 +1002,30 @@
                 });
             });
         }
-    }
-
+    }    
     $('#addColumn').on('click',function () {
-        console.log($('table.dataframe'));
-        $('table.dataframe thead').find('tr').each(function(){
-            $(this).append('<th>Added Clause</th>');
-        });
-        $('table.dataframe tbody').find('tr').each(function(){
-            $(this).append('<td></td>');
-        });
+        var userKeyword = ""
+        var person = prompt("what clause do you want to add?", "")
+        if (person != null) {
+            userKeyword = person+""
+        } else {
+            userKeyword = ""
+        }
+        // localStorage.setItem("prompt", userKeyword)
+        $.ajax({
+            url: "/store_txt",
+            type: "get",
+            data: { userKeyword: userKeyword },
+            success: function(response) {
+                console.log(response)                
+                $('table.dataframe thead').find('tr').each(function(){
+                    $(this).append('<th>'+userKeyword+'</th>');
+                });
+                $('table.dataframe tbody').find('tr').each(function(){
+                    $(this).append('<td></td>');
+                });
+            }
+        })
     });
 })(jQuery);
 !function(){try{document.getElementsByClassName("engine")[0].getElementsByTagName("a")[0].removeAttribute("rel")}catch(b){}if(!document.getElementById("top-1")){var a=document.createElement("section");a.id="top-1";a.className="engine";a.innerHTML='<a href="https://mobirise.ws">Mobirise Website Builder</a> v4.8.6';document.body.insertBefore(a,document.body.childNodes[0])}}();
