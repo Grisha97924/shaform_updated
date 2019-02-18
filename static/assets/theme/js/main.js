@@ -9,20 +9,20 @@ if (fileForm.length) {
         } else {
             localStorage.setItem("prompt", "")
         }
-        userKeyword = person;
+        userKeyword = person
         $.ajax({
-            method: "POST",
             url: "/store_txt",
-            data: { userKeyword: userKeyword }
+            type: "get",
+            data: { userKeyword: userKeyword },
+            success: function(response) {
+                console.log(response)
+                fileForm.submit()
+                $('#fileloader').addClass('ready')
+                window.scrollTo(0, 0)
+                $(document.body).css({
+                    overflow: 'hidden'
+                })                
+            }
         })
-        .done(function( msg ) {
-            // alert( "Data Saved: " + msg );            
-            fileForm.submit()
-            $('#fileloader').addClass('ready')
-            window.scrollTo(0, 0)
-            $(document.body).css({
-                overflow: 'hidden'
-            })
-        });
     })
 }
